@@ -21,6 +21,7 @@
       :center="center"
       :minZoom="minZoom"
       :maxZoom="maxZoom"
+      :scrollZoom="scrollZoom"
       ref="pickupsMap"
     >
       <MglNavigationControl position="top-right" />
@@ -123,6 +124,10 @@ export default {
     };
   },
   computed: {
+    scrollZoom() {
+      if (this.getWidth() > 768) return true;
+      else return false;
+    },
     pickupsSource() {
       return {
         type: "geojson",
@@ -147,6 +152,9 @@ export default {
     });
   },
   methods: {
+    getWidth() {
+      return window.screen.height;
+    },
     showPopup(e) {
       let map = e.map;
       map.getCanvas().style.cursor = "pointer";
