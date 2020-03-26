@@ -1,5 +1,16 @@
 <template>
   <div id="app" class="d-flex flex-row">
+    <!-- Map Overlay -->
+    <div v-if="showFullScreenMapOverlay" class="map-overlay">
+      <div class="h-100">
+        <div class="d-flex justify-content-end">
+          <a @click="hideFullScreenMapOverlay" style="cursor: pointer">
+            <i class="fas fa-times"></i>
+          </a>
+        </div>
+        <MapOverlay :item="clickedItem" />
+      </div>
+    </div>
     <!-- Sidebar -->
     <div class="sidebar sidebar-pad flex-grow-1">
       <div v-for="(pickups, i) in pickupsData" :key="i">
@@ -76,6 +87,7 @@ export default {
         { header: "Completed", data: [], show: false }
       ],
       showMapOverlay: false,
+      showFullScreenMapOverlay: false,
       clickedItem: null
     };
   },
@@ -113,8 +125,17 @@ export default {
     }
   },
   methods: {
+    getWidth() {
+      return window.screen.height;
+    },
     hideMapOverlay() {
-      this.showMapOverlay = false;
+      if (this.getWidth() > 768) this.showMapOverlay = false;
+      else {
+        this.showFullScreenMapOverlay = false;
+        $("body").addClass("overflow-scroll");
+        $("body").removeClass("no-overflow");
+        consol;
+      }
     },
     handleClickedListing(currentFeature) {
       // Fly to listing on map
@@ -128,7 +149,12 @@ export default {
       });
 
       // show popup
-      this.showMapOverlay = true;
+      if (this.getWidth() > 768) this.showMapOverlay = true;
+      else {
+        this.showFullScreenMapOverlay = true;
+        $("body").removeClass("overflow-scroll");
+        $("body").addClass("no-overflow");
+      }
       this.clickedItem = currentFeature;
     },
     togglePanel(i) {
@@ -416,6 +442,12 @@ a:hover {
   border-bottom-color: #91c949;
 }
 
+.no-overflow {
+  overflow: hidden;
+}
+.overflow-scroll {
+  overflow: scroll;
+}
 @media (max-width: 768px) {
   .map {
     height: 600px;
@@ -439,6 +471,7 @@ a:hover {
   .map-overlay {
     top: 0;
     height: 100%;
+    position: absolute;
   }
   .sidebar {
     flex: 1 !important;
