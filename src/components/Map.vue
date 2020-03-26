@@ -7,7 +7,11 @@
       </div>
       <div class="legend-entry d-flex flex-row align-items-center justify-content-center ml-3">
         <span class="legend-circle"></span>
-        <div class="legend-label ml-1">Completed or Failed Pickups</div>
+        <div class="legend-label ml-1">Completed Pickups</div>
+      </div>
+      <div class="legend-entry d-flex flex-row align-items-center justify-content-center ml-3">
+        <span class="legend-circle legend-circle-failed"></span>
+        <div class="legend-label ml-1">Failed Pickups</div>
       </div>
     </div>
     <MglMap
@@ -77,7 +81,7 @@ export default {
             "Done",
             "rgba(192, 108, 132, 0.5)",
             "Failed",
-            "rgba(192, 108, 132, 0.5)",
+            "rgba(207, 207, 207, 0.5)",
             "rgba(37, 206, 247, 0.5)"
           ],
           "circle-stroke-width": 1,
@@ -87,7 +91,7 @@ export default {
             "Done",
             "rgba(192, 108, 132, 1)",
             "Failed",
-            "rgba(192, 108, 132, 1)",
+            "rgba(207, 207, 207, 1)",
             "rgba(37, 206, 247, 1)"
           ],
           "circle-radius": [
@@ -194,6 +198,12 @@ export default {
   width: 25px;
   background-color: rgba(37, 206, 247, 0.5);
   border: 1px solid rgba(37, 206, 247, 1);
+}
+.legend-circle-failed {
+  height: 18px;
+  width: 18px;
+  background-color: rgba(207, 207, 207, 0.5);
+  border: 1px solid rgba(207, 207, 207, 1);
 }
 
 .mapboxgl-popup-content div {
