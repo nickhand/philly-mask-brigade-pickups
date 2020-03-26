@@ -1,66 +1,71 @@
 <template>
-  <div id="app" class="d-flex flex-row">
-    <!-- Map Overlay -->
-    <div v-if="showFullScreenMapOverlay" class="map-overlay">
-      <div class="h-100">
-        <div class="d-flex justify-content-end" @click="hideMapOverlay">
-          <a style="cursor: pointer">
-            <i class="fas fa-times"></i>
-          </a>
-        </div>
-        <MapOverlay :item="clickedItem" />
-      </div>
+  <div class="d-flex flex-column">
+    <div class="header-img w-100">
+      <img class="mb-2" src="./assets/Philly Mask Brigade - FB Cover.png" />
     </div>
-    <!-- Sidebar -->
-    <div class="sidebar sidebar-pad flex-grow-1">
-      <div v-for="(pickups, i) in pickupsData" :key="i">
-        <div
-          class="heading d-flex justify-content-between align-items-center"
-          @click="togglePanel(i)"
-        >
-          <h1>{{ pickups.header }} Pickups</h1>
-          <a v-show="pickups.show">
-            <i class="fas fa-caret-up fa-2x collapse-icon"></i>
-          </a>
-          <a v-show="!pickups.show">
-            <i class="fas fa-caret-down fa-2x collapse-icon"></i>
-          </a>
-        </div>
-        <div id="listings" class="listings" v-show="pickups.show">
-          <div
-            class="mb-3 listing-entry"
-            v-for="item in pickups.data"
-            :key="item['Timestamp']"
-            @click="handleClickedListing(item)"
-          >
-            <div class="d-flex justify-content-between align-items-center">
-              <div
-                class="listing-title"
-              >{{ item.properties["Street Name & Number (i.e. 1234 Broad St)"] }} {{ item.properties["City"] }} {{ item.properties["ZIP Code"] }}</div>
-              <div
-                class="ml-1 neighborhood-marker text-center"
-                :class="getRegionClass(item)"
-              >{{ item.properties["Delivery Region"] }}</div>
-            </div>
-            <div>{{ item.properties["Approximate number of unused masks"] }} masks</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="right-half sidebar-pad">
-      <!-- Map -->
-      <Map class="map" :pickupFeatures="pickupFeatures" ref="pickupsMap" />
-
+    <div id="app" class="d-flex flex-row">
       <!-- Map Overlay -->
-      <div v-if="showMapOverlay" class="map-overlay">
+      <div v-if="showFullScreenMapOverlay" class="map-overlay">
         <div class="h-100">
-          <div class="d-flex justify-content-end">
-            <a @click="hideMapOverlay" style="cursor: pointer">
+          <div class="d-flex justify-content-end" @click="hideMapOverlay">
+            <a style="cursor: pointer">
               <i class="fas fa-times"></i>
             </a>
           </div>
           <MapOverlay :item="clickedItem" />
+        </div>
+      </div>
+      <!-- Sidebar -->
+      <div class="sidebar sidebar-pad flex-grow-1">
+        <div v-for="(pickups, i) in pickupsData" :key="i">
+          <div
+            class="heading d-flex justify-content-between align-items-center"
+            @click="togglePanel(i)"
+          >
+            <h1>{{ pickups.header }} Pickups</h1>
+            <a v-show="pickups.show">
+              <i class="fas fa-caret-up fa-2x collapse-icon"></i>
+            </a>
+            <a v-show="!pickups.show">
+              <i class="fas fa-caret-down fa-2x collapse-icon"></i>
+            </a>
+          </div>
+          <div id="listings" class="listings" v-show="pickups.show">
+            <div
+              class="mb-3 listing-entry"
+              v-for="item in pickups.data"
+              :key="item['Timestamp']"
+              @click="handleClickedListing(item)"
+            >
+              <div class="d-flex justify-content-between align-items-center">
+                <div
+                  class="listing-title"
+                >{{ item.properties["Street Name & Number (i.e. 1234 Broad St)"] }} {{ item.properties["City"] }} {{ item.properties["ZIP Code"] }}</div>
+                <div
+                  class="ml-1 neighborhood-marker text-center"
+                  :class="getRegionClass(item)"
+                >{{ item.properties["Delivery Region"] }}</div>
+              </div>
+              <div>{{ item.properties["Approximate number of unused masks"] }} masks</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="right-half sidebar-pad">
+        <!-- Map -->
+        <Map class="map" :pickupFeatures="pickupFeatures" ref="pickupsMap" />
+
+        <!-- Map Overlay -->
+        <div v-if="showMapOverlay" class="map-overlay">
+          <div class="h-100">
+            <div class="d-flex justify-content-end">
+              <a @click="hideMapOverlay" style="cursor: pointer">
+                <i class="fas fa-times"></i>
+              </a>
+            </div>
+            <MapOverlay :item="clickedItem" />
+          </div>
         </div>
       </div>
     </div>
@@ -183,6 +188,9 @@ export default {
 </script>
 
 <style>
+.header-img {
+  background: #22d6bb;
+}
 .heading:hover {
   cursor: pointer;
 }
