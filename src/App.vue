@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-column">
     <div class="header-img w-100">
-      <img class="mb-2" src="./assets/Philly Mask Brigade - FB Cover.png" />
+      <img class="mb-2 responsive-img" src="./assets/Philly Mask Brigade - FB Cover.png" />
     </div>
     <div id="app" class="d-flex flex-row">
       <!-- Map Overlay -->
@@ -190,6 +190,10 @@ export default {
 <style>
 .header-img {
   background: #22d6bb;
+}
+.responsive-img {
+  width: 60%;
+  height: auto;
 }
 .heading:hover {
   cursor: pointer;
