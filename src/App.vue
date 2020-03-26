@@ -145,7 +145,11 @@ export default {
       }
     },
     handleClickedListing(currentFeature) {
-      if (this.clickedItem === currentFeature) return;
+      if (
+        this.clickedItem === currentFeature &&
+        (this.showMapOverlay || this.showFullScreenMapOverlay)
+      )
+        return;
       // Fly to listing on map
       let childMap = this.$refs.pickupsMap;
       let mapboxMap = childMap.$refs.pickupsMap.map;
