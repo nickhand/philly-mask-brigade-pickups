@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column">
-    <div class="header-img w-100">
+    <div class="header-img">
       <img class="mb-2 responsive-img" src="./assets/Philly Mask Brigade - FB Cover.png" />
     </div>
     <div id="app" class="d-flex flex-row">
@@ -16,7 +16,7 @@
         </div>
       </div>
       <!-- Sidebar -->
-      <div class="sidebar sidebar-pad flex-grow-1">
+      <div class="sidebar">
         <div v-for="(pickups, i) in pickupsData" :key="i">
           <div
             class="heading d-flex justify-content-between align-items-center"
@@ -52,7 +52,7 @@
         </div>
       </div>
 
-      <div class="right-half sidebar-pad">
+      <div class="right-half">
         <!-- Map -->
         <Map class="map" :pickupFeatures="pickupFeatures" ref="pickupsMap" />
 
@@ -190,6 +190,7 @@ export default {
 <style>
 .header-img {
   background: #22d6bb;
+  border: 4px solid #cfcfcf;
 }
 .responsive-img {
   width: 60%;
@@ -207,7 +208,6 @@ export default {
   bottom: 0;
   height: 300px;
   width: 100%;
-  /* border-radius: 25px 25px 0px 0px; */
   padding: 10px;
   border: 4px solid #cfcfcf;
   font-size: 1.5rem;
@@ -300,8 +300,8 @@ export default {
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
-  flex-shrink: 0;
-  flex-grow: 1;
+  /* flex-shrink: 0;
+  flex-grow: 1; */
   height: 100%;
   min-height: 800px;
 }
@@ -465,6 +465,9 @@ a:hover {
 @media (max-width: 768px) {
   .map {
     height: 600px;
+  }
+  .responsive-img {
+    width: 100%;
   }
 }
 
