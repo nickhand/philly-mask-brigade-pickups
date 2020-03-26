@@ -141,7 +141,7 @@ export default {
       // Fly to listing on map
       let childMap = this.$refs.pickupsMap;
       let mapboxMap = childMap.$refs.pickupsMap.map;
-      let coords = currentFeature.geometry.coordinates;
+      let coords = currentFeature.geometry.coordinates.slice();
       coords[1] -= 0.007;
       if (mapboxMap) {
         mapboxMap.flyTo({
