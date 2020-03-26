@@ -462,14 +462,6 @@ a:hover {
 .overflow-scroll {
   overflow: scroll;
 }
-@media (max-width: 768px) {
-  .map {
-    height: 600px;
-  }
-  .responsive-img {
-    width: 100%;
-  }
-}
 
 @media (max-width: 1024px) {
   .right-half {
@@ -492,6 +484,14 @@ a:hover {
   }
   .sidebar {
     flex: 1 !important;
+  }
+}
+@media (max-width: 768px) {
+  .map {
+    height: 500px;
+  }
+  .responsive-img {
+    width: 100%;
   }
 }
 </style>
