@@ -137,15 +137,16 @@ export default {
       }
     },
     handleClickedListing(currentFeature) {
+      if (this.clickedItem === currentFeature) return;
       // Fly to listing on map
       let childMap = this.$refs.pickupsMap;
       let mapboxMap = childMap.$refs.pickupsMap.map;
       let coords = currentFeature.geometry.coordinates;
-      coords[1] -= 0.0035;
+      coords[1] -= 0.007;
       if (mapboxMap) {
         mapboxMap.flyTo({
           center: coords,
-          zoom: 15
+          zoom: 14
         });
       }
 
