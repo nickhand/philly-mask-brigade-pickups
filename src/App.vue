@@ -1,7 +1,10 @@
 <template>
   <div class="d-flex flex-column">
-    <div class="header-img">
-      <img class="mb-2 responsive-img" src="./assets/Philly Mask Brigade - FB Cover.png" />
+    <div class="header">
+      <div class="header-img">
+        <img class="responsive-img" src="./assets/Philly Mask Brigade - FB Cover.png" />
+      </div>
+      <div class="header-img-fill"></div>
     </div>
     <div id="app" class="d-flex flex-row">
       <!-- Map Overlay -->
@@ -188,9 +191,20 @@ export default {
 </script>
 
 <style>
+.header {
+  position: relative;
+  border: 4px solid #cfcfcf;
+}
+.header-img-fill {
+  background: #1a8676;
+  left: 60%;
+  top: 6.25%;
+  width: 40%;
+  height: 93.75%;
+  position: absolute;
+}
 .header-img {
   background: #22d6bb;
-  border: 4px solid #cfcfcf;
 }
 .responsive-img {
   width: 60%;
