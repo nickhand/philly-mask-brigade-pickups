@@ -3,8 +3,8 @@
     <!-- Map Overlay -->
     <div v-if="showFullScreenMapOverlay" class="map-overlay">
       <div class="h-100">
-        <div class="d-flex justify-content-end">
-          <a @click="hideFullScreenMapOverlay" style="cursor: pointer">
+        <div class="d-flex justify-content-end" @click="hideMapOverlay">
+          <a style="cursor: pointer">
             <i class="fas fa-times"></i>
           </a>
         </div>
@@ -134,7 +134,6 @@ export default {
         this.showFullScreenMapOverlay = false;
         $("body").addClass("overflow-scroll");
         $("body").removeClass("no-overflow");
-        consol;
       }
     },
     handleClickedListing(currentFeature) {
@@ -143,10 +142,12 @@ export default {
       let mapboxMap = childMap.$refs.pickupsMap.map;
       let coords = currentFeature.geometry.coordinates;
       coords[1] -= 0.0035;
-      mapboxMap.flyTo({
-        center: coords,
-        zoom: 15
-      });
+      if (mapboxMap) {
+        mapboxMap.flyTo({
+          center: coords,
+          zoom: 15
+        });
+      }
 
       // show popup
       if (this.getWidth() > 768) this.showMapOverlay = true;
