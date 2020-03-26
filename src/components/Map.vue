@@ -130,6 +130,7 @@ export default {
       };
     }
   },
+
   created() {
     // We need to set mapbox-gl library here in order to use it in template
     this.mapbox = Mapbox;

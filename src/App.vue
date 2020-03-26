@@ -1,14 +1,17 @@
 <template>
-  <div id="app">
+  <div id="app" class="d-flex flex-row">
     <!-- Sidebar -->
-    <div class="sidebar sidebar-pad">
+    <div class="sidebar sidebar-pad flex-grow-1">
       <div v-for="(pickups, i) in pickupsData" :key="i">
-        <div class="heading d-flex justify-content-between align-items-center">
+        <div
+          class="heading d-flex justify-content-between align-items-center"
+          @click="togglePanel(i)"
+        >
           <h1>{{ pickups.header }} Pickups</h1>
-          <a v-show="pickups.show" @click="hidePanel(i)">
+          <a v-show="pickups.show">
             <i class="fas fa-caret-up fa-2x collapse-icon"></i>
           </a>
-          <a v-show="!pickups.show" @click="showPanel(i)">
+          <a v-show="!pickups.show">
             <i class="fas fa-caret-down fa-2x collapse-icon"></i>
           </a>
         </div>
@@ -34,7 +37,7 @@
       </div>
     </div>
 
-    <div class="right-half">
+    <div class="right-half sidebar-pad">
       <!-- Map -->
       <Map class="map" :pickupFeatures="pickupFeatures" ref="pickupsMap" />
 
@@ -117,8 +120,10 @@ export default {
       // Fly to listing on map
       let childMap = this.$refs.pickupsMap;
       let mapboxMap = childMap.$refs.pickupsMap.map;
+      let coords = currentFeature.geometry.coordinates;
+      coords[1] -= 0.0035;
       mapboxMap.flyTo({
-        center: currentFeature.geometry.coordinates,
+        center: coords,
         zoom: 15
       });
 
@@ -126,11 +131,8 @@ export default {
       this.showMapOverlay = true;
       this.clickedItem = currentFeature;
     },
-    hidePanel(i) {
-      this.pickupsData[i].show = false;
-    },
-    showPanel(i) {
-      this.pickupsData[i].show = true;
+    togglePanel(i) {
+      this.pickupsData[i].show = !this.pickupsData[i].show;
     },
     getRegionClass(item) {
       let hood = item.properties["Delivery Region"];
@@ -153,19 +155,23 @@ export default {
 </script>
 
 <style>
+.heading:hover {
+  cursor: pointer;
+}
 .map-overlay {
+  z-index: 1000;
   color: black;
   background: #fff;
   position: absolute;
-  left: 0;
-  width: 100%;
-  top: 68.75%;
+  top: 62.5%;
   bottom: 0;
-  height: 250;
-  border-radius: 25px 25px 0px 0px;
+  height: 300px;
+  width: 100%;
+  /* border-radius: 25px 25px 0px 0px; */
   padding: 10px;
   border: 4px solid #cfcfcf;
   font-size: 1.5rem;
+  overflow-y: scroll;
 }
 .collapse-icon {
   cursor: pointer;
@@ -254,6 +260,10 @@ export default {
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
+  flex-shrink: 0;
+  flex-grow: 1;
+  height: 100%;
+  min-height: 800px;
 }
 
 * {
@@ -263,30 +273,23 @@ export default {
 }
 
 .sidebar {
-  position: absolute;
-  width: 45%;
-  top: 0;
-  left: 0;
   border-right: 1px solid rgba(0, 0, 0, 0.25);
-  height: 800px;
   overflow-y: scroll;
+  max-height: 800px;
+  flex: 1 1 0;
 }
 .sidebar-pad {
   padding: 0px 5px 0px 5px;
 }
 
 .right-half {
-  position: absolute;
-  left: 45%;
-  width: 55%;
-  top: 0;
-  bottom: 0;
-  height: 800px;
   overflow: hidden;
+  flex: 1.25 1 0;
+  position: relative;
 }
 
 .map {
-  height: 800px;
+  height: 100%;
 }
 
 h1 {
@@ -411,5 +414,34 @@ a:hover {
 
 .mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
   border-bottom-color: #91c949;
+}
+
+@media (max-width: 768px) {
+  .map {
+    height: 600px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .right-half {
+    width: 100% !important;
+    height: 100% !important;
+    flex: 1 !important;
+    margin-top: 1rem;
+    border-top: 5px solid #cfcfcf;
+  }
+  .map {
+    height: 1000px;
+  }
+  #app {
+    flex-direction: column !important;
+  }
+  .map-overlay {
+    top: 0;
+    height: 100%;
+  }
+  .sidebar {
+    flex: 1 !important;
+  }
 }
 </style>

@@ -9,7 +9,7 @@
         :class="getRegionClass(item)"
       >{{ item.properties["Delivery Region"] }}</div>
     </div>
-    <div class="overlay-body">
+    <div class="overlay-body mt-4">
       <div class="d-flex overlay-line">
         <div class="overlay-label mr-1">Timestamp:</div>
         <div>{{item.properties['Timestamp']}}</div>
@@ -76,5 +76,10 @@ export default {
 .overlay-label {
   font-weight: 700;
   min-width: 250px;
+}
+@media (max-width: 1000px) {
+  .overlay-line {
+    flex-direction: column;
+  }
 }
 </style>
